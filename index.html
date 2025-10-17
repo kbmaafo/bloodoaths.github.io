@@ -88,14 +88,14 @@
         content: contentBase64
       };
 
-      // Replace these values:
+      // ✅ Your correct repo info
       const username = "kbmaafo";
       const repo = "bloodoaths.github.io";
-      const branch = "main"; // or 'master' if your repo uses that
+      const branch = "main"; // change to "master" if your repo uses that
 
       const url = `https://api.github.com/repos/${username}/${repo}/contents/files/${filename}`;
 
-      const token = prompt("Enter your GitHub token (just once — it won't be saved):");
+      const token = prompt("Enter your GitHub token (with 'repo' permission):");
 
       const res = await fetch(url, {
         method: "PUT",
@@ -112,6 +112,8 @@
         shareLink.value = viewerUrl;
         shareSection.style.display = 'block';
       } else {
+        const data = await res.json();
+        console.error(data);
         alert("Upload failed. Make sure your token is correct and has 'repo' permissions.");
       }
     };
@@ -125,4 +127,3 @@
   </script>
 </body>
 </html>
-
