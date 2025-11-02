@@ -59,12 +59,15 @@
       pdfViewer.style.display = "block";
     } else {
       fetch(fileUrl)
-        .then(res => res.text())
+        .then(res => {
+          if (!res.ok) throw new Error("File not found");
+          return res.text();
+        })
         .then(data => {
           document.getElementById("displayArea").textContent = data;
         })
         .catch(err => {
-          document.getElementById("displayArea").textContent = "Error loading file.";
+          document.getElementById("displayArea").textContent = "Error loading file. Please check the file URL.";
         });
     }
   </script>
